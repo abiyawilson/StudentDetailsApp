@@ -1,3 +1,4 @@
 from django.contrib import admin
+from studentDetailsApi.models import StudentTShirtDetails
 
-# Register your models here.
+admin.site.register(StudentTShirtDetails)
