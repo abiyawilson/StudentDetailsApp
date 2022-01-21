@@ -3,12 +3,13 @@ from django.core.exceptions import ValidationError
 
 
 # Create your models here.
+from settings import settings
 
 
 def validate_age(value):
     if value < 0:
         raise ValidationError(
-            {'title': f"Enter valid age, given age is {value}"}
+            {'error': f"Enter valid age, given age is {value}"}
         )
 
 
@@ -33,6 +34,10 @@ class StudentTShirtDetails(models.Model):
     shirt_size = models.CharField(max_length=1, choices=SHIRT_SIZES)
     guardian_name = models.CharField(max_length=50)
     created = models.DateTimeField(auto_now_add=True)
+    owner = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='studentsDetails', on_delete=models.CASCADE)
 
     class Meta:
         ordering = ['id']
+
+
+
