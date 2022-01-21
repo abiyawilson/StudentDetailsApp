@@ -1,11 +1,12 @@
-from django.urls import path
-
+from django.urls import path, include
+from rest_framework.routers import DefaultRouter
 from studentDetailsApi import views
 
+# Create a router and register our viewsets with it.
+router = DefaultRouter()
+router.register(r'students', views.StudentRecordViewSet)
+
+# The API URLs are now determined automatically by the router.
 urlpatterns = [
-    path('studentsDetails/list/', views.StudentsRecordsList.as_view()),
-    path('studentsDetails/create/', views.StudentRecordCreate.as_view()),
-    path('studentDetails/show/<int:pk>/', views.StudentRecord.as_view()),
-    path('studentDetails/update/<int:pk>/', views.StudentRecordUpdate.as_view()),
-    path('studentDetails/delete/<int:pk>/', views.StudentRecordDelete.as_view()),
+    path('', include(router.urls)),
 ]
