@@ -24,6 +24,6 @@ router.register(r'students', views.StudentRecordViewSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('studentDetailsApi.urls')),
+    path('', include('users.urls')),
     path('', include(router.urls)),
 ]
