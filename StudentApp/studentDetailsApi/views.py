@@ -1,6 +1,5 @@
-from rest_framework import permissions, viewsets
+from rest_framework import viewsets, permissions
 from rest_framework.permissions import IsAuthenticated
-
 from studentDetailsApi.models import StudentTShirtDetails
 from studentDetailsApi.serializers import StudentTShirtDetailsSerializers
 
@@ -22,10 +21,18 @@ class IsOwnerOrReadOnly(permissions.BasePermission):
 
 
 class StudentRecordViewSet(viewsets.ModelViewSet):
-    queryset = StudentTShirtDetails.objects.all()
+
     serializer_class = StudentTShirtDetailsSerializers
-    permission_classes = [IsAuthenticated,
-                          IsOwnerOrReadOnly]
+    permission_classes = [IsAuthenticated, IsOwnerOrReadOnly]
+
+    def get_queryset(self):
+        user = self.request.user.is_staff
+        userId = self.request.query_params.get('userId')
+        if user:
+            # Admin can view the requested user data
+            return StudentTShirtDetails.objects.filter(owner=userId)
+        # User can views the record made by him/her
+        return StudentTShirtDetails.objects.filter(owner=self.request.user)
 
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)
