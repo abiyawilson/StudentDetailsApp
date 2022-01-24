@@ -2,7 +2,7 @@
 
 This repo have Api genetared using Django REST Framework.
 
-The aim of this project is to allow user(teacher) of the school to make, update, delete and view the student Tshirt details record.
+The aim of this project is to allow User(assume teacher) of the school to make, update, delete and view the student Tshirt details record.
 
 This project have two modules _User(teacher)_ and _Student Tshirt Details_ module.
 
