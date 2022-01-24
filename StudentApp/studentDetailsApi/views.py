@@ -26,7 +26,7 @@ class StudentRecordViewSet(viewsets.ModelViewSet):
     permission_classes = [IsAuthenticated, IsOwnerOrReadOnly]
 
     def get_queryset(self):
-        user = self.request.user.is_staff
+        user = self.request.user.is_superuser
         userId = self.request.query_params.get('userId')
         if user:
             # Admin can view the requested user data
